@@ -9,6 +9,10 @@ package Home;
  * @author yashr
  */
 public class EmployeeOptions extends javax.swing.JFrame {
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {                                         
+    new LoginPage().setVisible(true);  // Replace with your target page
+    dispose();  // Close the current window (ProductManagement)
+}
 
     /**
      * Creates new form EmployeeOptions
@@ -65,6 +69,12 @@ public class EmployeeOptions extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

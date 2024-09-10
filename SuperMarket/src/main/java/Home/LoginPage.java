@@ -15,6 +15,40 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        // For the ID TextField
+jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+    public void focusGained(java.awt.event.FocusEvent evt) {
+        if (jTextField1.getText().equals("ID")) {
+            jTextField1.setText("");  // Clear the field when focused
+        }
+    }
+    public void focusLost(java.awt.event.FocusEvent evt) {
+        if (jTextField1.getText().isEmpty()) {
+            jTextField1.setText("ID");  // Restore default text if left empty
+        }
+    }
+});
+
+// For the Password Field
+jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+    public void focusGained(java.awt.event.FocusEvent evt) {
+        if (String.valueOf(jPasswordField1.getPassword()).equals("Password")) {
+            jPasswordField1.setText("");  // Clear the field when focused
+        }
+    }
+    public void focusLost(java.awt.event.FocusEvent evt) {
+        if (String.valueOf(jPasswordField1.getPassword()).isEmpty()) {
+            jPasswordField1.setText("Password");  // Restore default text if left empty
+        }
+    }
+});
+    this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                jPanel1.requestFocusInWindow();  // Request focus on the panel (or any other component)
+            }
+        });
+
     }
 
     /**
@@ -26,6 +60,7 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -38,7 +73,6 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,9 +108,15 @@ public class LoginPage extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(224, 249, 255));
         jTextField1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jTextField1.setText("Username");
+        jTextField1.setText("ID");
+        jTextField1.setToolTipText("");
         jTextField1.setActionCommand("<Not Set>");
         jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jPasswordField1.setBackground(new java.awt.Color(224, 249, 255));
         jPasswordField1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
@@ -106,6 +146,7 @@ public class LoginPage extends javax.swing.JFrame {
         );
 
         jRadioButton1.setBackground(new java.awt.Color(224, 249, 255));
+        buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jRadioButton1.setText("Manager");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,12 +156,9 @@ public class LoginPage extends javax.swing.JFrame {
         });
 
         jRadioButton2.setBackground(new java.awt.Color(224, 249, 255));
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jRadioButton2.setText("Employee");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("X");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -144,17 +182,13 @@ public class LoginPage extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel6)
-                .addGap(57, 57, 57)
+                .addGap(82, 82, 82)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,10 +233,14 @@ public class LoginPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,9 +278,9 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

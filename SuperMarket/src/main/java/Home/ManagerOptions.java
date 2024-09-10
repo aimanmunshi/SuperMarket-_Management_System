@@ -9,6 +9,10 @@ package Home;
  * @author yashr
  */
 public class ManagerOptions extends javax.swing.JFrame {
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {                                         
+    new LoginPage().setVisible(true);  // Replace with your target page
+    dispose();  // Close the current window (ProductManagement)
+}
 
     /**
      * Creates new form EmployeeOptions
@@ -66,6 +70,12 @@ public class ManagerOptions extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -107,12 +117,22 @@ public class ManagerOptions extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("CATEGORIES");
         jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 88, 119), 2));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(95, 158, 160));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("PRODUCTS");
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(71, 88, 119), 2));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -177,8 +197,19 @@ public class ManagerOptions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+      new EmployeeManagement().setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      new CatogaryManagement().setVisible(true);
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      new ProductManagement().setVisible(true);
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
