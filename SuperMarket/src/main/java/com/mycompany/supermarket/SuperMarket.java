@@ -4,6 +4,8 @@
 
 package com.mycompany.supermarket;
 
+import Home.LoginPage;
+
 /**
  *
  * @author yashr
@@ -11,6 +13,7 @@ package com.mycompany.supermarket;
 public class SuperMarket {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+         new LoginPage().setVisible(true);
+    }                
     }
-}
+

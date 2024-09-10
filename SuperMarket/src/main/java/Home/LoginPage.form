@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
@@ -254,6 +254,9 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Login"/>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="// Add Mouse Click Listener for the Login Button (jLabel3)&#xa;jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {&#xa;    public void mouseClicked(java.awt.event.MouseEvent evt) {&#xa;        // Check if Manager radio button is selected&#xa;        if (jRadioButton1.isSelected()) {&#xa;            // Check if both the text fields contain &quot;aymanager&quot;&#xa;            if (jTextField1.getText().equals(&quot;aymanager&quot;) &amp;&amp; &#xa;                String.valueOf(jPasswordField1.getPassword()).equals(&quot;aymanager&quot;)) {&#xa;                &#xa;                // Redirect to another page (replace `NextPage` with your target JFrame)&#xa;                ManagerOptions nextPage = new ManagerOptions(); // Assuming `NextPage` is the next form&#xa;                nextPage.setVisible(true);  // Show the next page&#xa;                dispose();  // Close the current login page&#xa;            } &#xa;        } &#xa;    }&#xa;});"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

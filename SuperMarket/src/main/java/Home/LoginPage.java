@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
+
 package Home;
 
-/**
- *
- * @author yashr
- */
+
 public class LoginPage extends javax.swing.JFrame {
 
     /**
@@ -144,6 +139,24 @@ jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
+
+        // Add Mouse Click Listener for the Login Button (jLabel3)
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // Check if Manager radio button is selected
+                if (jRadioButton1.isSelected()) {
+                    // Check if both the text fields contain "aymanager"
+                    if (jTextField1.getText().equals("aymanager") &&
+                        String.valueOf(jPasswordField1.getPassword()).equals("aymanager")) {
+
+                        // Redirect to another page (replace `NextPage` with your target JFrame)
+                        ManagerOptions nextPage = new ManagerOptions(); // Assuming `NextPage` is the next form
+                        nextPage.setVisible(true);  // Show the next page
+                        dispose();  // Close the current login page
+                    }
+                }
+            }
+        });
 
         jRadioButton1.setBackground(new java.awt.Color(224, 249, 255));
         buttonGroup1.add(jRadioButton1);
