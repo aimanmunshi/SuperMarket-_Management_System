@@ -11,4 +11,16 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>com.mycompany.supermarket.SuperMarket</exec.mainClass>
     </properties>
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependencies>
+    <!-- MySQL Connector Java dependency -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>9.0.0</version> <!-- You can check for the latest version if needed -->
+    </dependency>
+</dependencies>
+
+ 
+
 </project>
