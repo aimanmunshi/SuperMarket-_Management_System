@@ -19,6 +19,7 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        
 
         // For the ID TextField
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -72,7 +73,7 @@ public class LoginPage extends javax.swing.JFrame {
         if (jRadioButton1.isSelected()) { // Manager login check
             if (username.equals("aymanager") && password.equals("aymanager")) {
                 // Redirect to ManagerOptions if login is successful
-                ManagerOptions nextPage = new ManagerOptions(); // Assuming `ManagerOptions` is the next JFrame
+                EmployeeManagement nextPage = new  EmployeeManagement(); // Assuming `ManagerOptions` is the next JFrame
                 nextPage.setVisible(true);  // Show the next page
                 dispose();  // Close the current login page
             } else {

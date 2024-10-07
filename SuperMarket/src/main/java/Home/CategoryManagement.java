@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
  *
  * @author yashr
  */
-public class EmployeeManagement extends javax.swing.JFrame {
+public class CategoryManagement extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {                                         
-    new LoginPage().setVisible(true);  // Opens the Employee Options page (or the page you want to open)
+    new EmployeeOptions().setVisible(true);  // Opens the Employee Options page (or the page you want to open)
     dispose();  // Close the current ProductManagement window
 }
 
@@ -24,60 +24,56 @@ public class EmployeeManagement extends javax.swing.JFrame {
     /**
      * Creates new form EmployeeOptions
      */
-    public EmployeeManagement() {
+    public CategoryManagement() {
         initComponents();
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                fetchEmployeeName();  // Call method to fetch product name based on PID
+                fetchCategoryName();  // Call method to fetch product name based on PID
             }
         });
     }
-    private void fetchEmployeeName() {
-        String eid = jTextField1.getText();
-    if (eid.isEmpty()) {
-        jTextField2.setText(""); // Clear the Employee Name field if EID is empty
-        jTextField3.setText(""); // Clear the Password field if EID is empty
-        return;
-    }
+    private void fetchCategoryName() {
+        String cid = jTextField1.getText();
+        if (cid.isEmpty()) {
+            jTextField2.setText(""); // Clear the Product Name field if PID is empty
+            return;
+        }
 
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    try {
-        // Step 1: Establish the connection
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
-        
-        // Step 2: Prepare the query to fetch employee name and password based on EID
-        String query = "SELECT EmployeeName, Password FROM employees WHERE EID = ?";
-        ps = con.prepareStatement(query);
-        ps.setString(1, eid);  // Set the EID parameter
-        
-        // Step 3: Execute the query
-        rs = ps.executeQuery();
-        
-        // Step 4: Check if employee exists and set the employee name and password
-        if (rs.next()) {
-            String employeeName = rs.getString("EmployeeName");
-            String password = rs.getString("Password");
-            jTextField2.setText(employeeName);  // Set the employee name in the text field
-            jTextField3.setText(password);  // Set the password in the text field
-        } else {
-            jTextField2.setText("");  // If no employee is found, clear the field
-            jTextField3.setText("");  // Clear the password field
-        }
-        
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error fetching employee details: " + e.getMessage());
-    } finally {
-        // Step 5: Close the resources
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (con != null) con.close();
+            // Step 1: Establish the connection
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
+            
+            // Step 2: Prepare the query to fetch product name based on PID
+            String query = "SELECT Category FROM categories WHERE CID = ?";
+            ps = con.prepareStatement(query);
+            ps.setString(1, cid);  // Set the PID parameter
+            
+            // Step 3: Execute the query
+            rs = ps.executeQuery();
+            
+            // Step 4: Check if product exists and set the product name
+            if (rs.next()) {
+                String categoryName = rs.getString("Category");
+                jTextField2.setText(categoryName);  // Set the product name in the text field
+            } else {
+                jTextField2.setText("");  // If no product is found, clear the field
+            }
+            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error closing connection: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error fetching category name: " + e.getMessage());
+        } finally {
+            // Step 5: Close the resources
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error closing connection: " + e.getMessage());
+            }
         }
-    }
     }
 
     /**
@@ -99,10 +95,8 @@ public class EmployeeManagement extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -136,14 +130,13 @@ public class EmployeeManagement extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        // Add MouseListener to jLabel1 to handle clicks
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
         });
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Home/EmployeeGroup.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Home/Manager.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -152,7 +145,7 @@ public class EmployeeManagement extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
@@ -168,18 +161,15 @@ public class EmployeeManagement extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Georgia", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("EMPLOYEE MANAGEMENT");
+        jLabel2.setText("CATEGORY MANAGEMENT");
 
         jSeparator1.setBackground(new java.awt.Color(71, 88, 119));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("EID");
+        jLabel4.setText("CID");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Employee Name");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Password");
+        jLabel5.setText("Category Name");
 
         jButton1.setBackground(new java.awt.Color(95, 158, 160));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -218,7 +208,7 @@ public class EmployeeManagement extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -228,7 +218,6 @@ public class EmployeeManagement extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -236,18 +225,17 @@ public class EmployeeManagement extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(52, 52, 52)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)))
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(138, 138, 138))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,16 +251,12 @@ public class EmployeeManagement extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
+                .addGap(112, 112, 112)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 75, Short.MAX_VALUE))
+                .addGap(0, 70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -282,8 +266,7 @@ public class EmployeeManagement extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,131 +289,132 @@ public class EmployeeManagement extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String eid = jTextField1.getText();
-    String employeeName = jTextField2.getText();
-    String password = jTextField3.getText();
+        String cid = jTextField1.getText();
+    String category = jTextField2.getText();
     
-    // Check if none of the fields are empty
-    if (!eid.isEmpty() && !employeeName.isEmpty() && !password.isEmpty()) {
+    if (!cid.isEmpty() && !category.isEmpty()) {
         try {
             // Step 1: Load the JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
             
-            // Step 2: Establish the connection to the database
+            // Step 2: Establish the connection
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
             
-            // Step 3: Create the SQL query to insert a new employee
-            String query = "INSERT INTO employees (EID, EmployeeName, Password) VALUES (?, ?, ?)";
+            // Step 3: Create the SQL query to insert a new category
+            String query = "INSERT INTO categories (CID, Category) VALUES (?, ?)";
             
             // Step 4: Prepare the statement
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, eid);
-            stmt.setString(2, employeeName);
-            stmt.setString(3, password);
+            stmt.setString(1, cid);
+            stmt.setString(2, category);
             
-            // Step 5: Execute the update (insert)
+            // Step 5: Execute the update (insertion)
             int result = stmt.executeUpdate();
             
-            // Step 6: Show a dialog box with a success message if insertion is successful
+            // Step 6: Show a dialog box with a success message
             if (result > 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Employee added successfully!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Category added successfully!");
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Failed to add employee.");
+                javax.swing.JOptionPane.showMessageDialog(this, "Failed to add category.");
             }
             
             // Step 7: Close the connection
             con.close();
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "An error occurred while adding the employee.");
+            javax.swing.JOptionPane.showMessageDialog(this, "An error occurred while adding the category.");
         }
     } else {
-        // Show a dialog box if any of the fields are empty
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter all the employee details.");
+        // Show a dialog box if the CID or Category fields are empty
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter both CID and Category.");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String eid = jTextField1.getText(); // Assuming jTextField1 is for EID
-    String newPassword = jTextField2.getText(); // Assuming jTextField2 is for new Password
-    
-    // Check if both fields are filled
-    if (!eid.isEmpty() && !newPassword.isEmpty()) {
+     String cid = jTextField1.getText();
+    String category = jTextField2.getText();
+
+    if (!cid.isEmpty() && !category.isEmpty()) {
         try {
             // Step 1: Load the JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Step 2: Establish the connection to the database
+
+            // Step 2: Establish the connection
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
-            
-            // Step 3: Create the SQL query to update the employee's password
-            String query = "UPDATE employees SET Password = ? WHERE EID = ?";
-            
+
+            // Step 3: Create the SQL query for updating the category
+            String query = "UPDATE categories SET Category = ? WHERE CID = ?";
+
             // Step 4: Prepare the statement
             PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, newPassword);
-            stmt.setString(2, eid);
-            
-            // Step 5: Execute the update
-            int result = stmt.executeUpdate();
-            
-            // Step 6: Show a dialog box with a success message if update is successful
-            if (result > 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Password updated successfully!");
+            stmt.setString(1, category);  // Set the new category
+            stmt.setString(2, cid);       // Set the CID to identify the row
+
+            // Step 5: Execute the update query
+            int rowsUpdated = stmt.executeUpdate();
+
+            // Step 6: Show message dialog based on update success
+            if (rowsUpdated > 0) {
+                // If the update was successful
+                javax.swing.JOptionPane.showMessageDialog(this, "Category updated successfully.");
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Failed to update password. EID may not exist.");
+                // If no rows were updated (likely an invalid CID)
+                javax.swing.JOptionPane.showMessageDialog(this, "No matching CID found. Update failed.");
             }
-            
+
             // Step 7: Close the connection
             con.close();
         } catch (Exception e) {
+            // Show error message dialog if an exception occurs
+            javax.swing.JOptionPane.showMessageDialog(this, "An error occurred while updating the category.");
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "An error occurred while updating the password.");
         }
     } else {
-        // Show a dialog box if any of the fields are empty
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter both EID and new password.");
+        // If CID or Category field is empty
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter both CID and Category.");
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String eid = jTextField1.getText(); // Assuming jTextField1 is for EID
+          String cid = jTextField1.getText();  // Get the CID from the input field
     
-    // Check if the EID field is not empty
-    if (!eid.isEmpty()) {
-        try {
-            // Step 1: Load the JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            
-            // Step 2: Establish the connection to the database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
-            
-            // Step 3: Create the SQL query to delete an employee
-            String query = "DELETE FROM employees WHERE EID = ?";
-            
-            // Step 4: Prepare the statement
-            PreparedStatement stmt = con.prepareStatement(query);
-            stmt.setString(1, eid);
-            
-            // Step 5: Execute the update (delete)
-            int result = stmt.executeUpdate();
-            
-            // Step 6: Show a dialog box with a success message if deletion is successful
-            if (result > 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Employee deleted successfully!");
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Employee with given EID not found.");
+    if (!cid.isEmpty()) {
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this category?", "Confirm Deletion", javax.swing.JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            try {
+                // Step 1: Load the JDBC driver
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                
+                // Step 2: Establish the connection
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "aiman005");
+                
+                // Step 3: Create the SQL delete query
+                String query = "DELETE FROM categories WHERE CID = ?";
+                
+                // Step 4: Prepare the statement
+                PreparedStatement stmt = con.prepareStatement(query);
+                stmt.setString(1, cid);
+                
+                // Step 5: Execute the delete query
+                int rowsAffected = stmt.executeUpdate();
+                
+                // Step 6: Show the appropriate dialog box based on the result
+                if (rowsAffected > 0) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Category deleted successfully!");
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Category not found!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+                
+                // Step 7: Close the connection
+                con.close();
+            } catch (Exception e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "An error occurred: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
-            
-            // Step 7: Close the connection
-            con.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "An error occurred while deleting the employee.");
         }
     } else {
-        // Show a dialog box if the EID field is empty
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter the EID of the employee to delete.");
+        // If the CID field is empty
+        javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid CID!", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -451,14 +435,22 @@ public class EmployeeManagement extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CategoryManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -471,7 +463,7 @@ public class EmployeeManagement extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EmployeeManagement().setVisible(true);
+                new CategoryManagement().setVisible(true);
             }
         });
     }
@@ -485,7 +477,6 @@ public class EmployeeManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -493,6 +484,5 @@ public class EmployeeManagement extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
